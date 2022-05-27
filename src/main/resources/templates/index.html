@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Flights</title>
+    <link href="../../static/css/StyleCSS.css" th:href="@{/css/StyleCSS.css}" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+
+<table  width="700px" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+        <td width="200px" align="left" valign="top">
+            <div class="TextGeorgia">
+                <form name="formCheckBox" id="formCheckBox" action="" method="POST">
+                  <p>Сортировать:</p>
+                    <div>
+                        <input type="radio" id="sortIncreasePrice" name="sort1" onclick="this.form.submit();"  th:checked=${sort1} >
+                        <label for="sortIncreasePrice">- по возрастанию цены</label> <br>
+
+                        <input type="radio" id="sortDecreasePrice" name="sort2" onclick="this.form.submit();" th:checked=${sort2} >
+                        <label for="sortDecreasePrice">- по убыванию цены</label> <br>
+
+                        <input type="radio" id="sortFlightTime" name="sort3" onclick="this.form.submit();" th:checked=${sort3} >
+                        <label for="sortFlightTime">-по времени в пути</label><br>
+                    </div>
+            <br><br>
+                    <p>Фильтровать:</p>
+                    <div>
+                      <input type="checkbox" id="onechange" name="change1" th:checked=${change1} onclick="this.form.submit();">
+                      <label for="onechange">одна пересадка</label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="nochanges" name="change2" th:checked=${change2} onclick="this.form.submit();">
+                      <label for="nochanges">без пересадок</label>
+                    </div>
+            <br><br>
+                    <p>Цена:</p>   
+                    <div>
+                    	<label for="lowerlimit">От</label>
+                        <input type="text" id="lowerlimit" name="lowerlimit" size="10" onchange="this.form.submit();" th:value="${lowerlimit1}"/>
+                    </div>  
+                    <div>
+                    	<label for="upperlimit">До</label>
+                        <input type="text" id="upperlimit" name="upperlimit" size="10" onchange="this.form.submit();" th:value="${upperlimit1}" />
+                    </div>  
+                    <div style="color:red" th:text="${message}"></div><br>  
+                </form>
+            </div>
+        </td>
+        <td class="PaddingUsual1" align="left" valign="top">
+            <div th:each="flight : ${flights}">
+            <table class="myTable1" width="100%" border="0" cellspacing="0" cellpadding="0">
+            	<col width="110">
+                <col width="110">
+                <col width="60">
+                <col width="110">
+                <col width="110">
+              <tr height="30" bgcolor="#0099FF">
+                <td align="left" colspan="2"><span th:text="${flight.getFlight().getCarrier().getCaption()}">xxx</span></td>
+                <td> </td>
+                <td align="right" colspan="2"><span th:text="${flight.getFlight().getPrice().getTotal().getAmount()} ">xxx</span></td>
+              </tr>
+              <tr>
+                <td align="right" colspan="2"><span th:text="${flight.getFlight().getLegs().get(0).getSegments().get(0).getDepartureCity().getCaption()}">xxx</span></td>
+                <td align="center"> ---> </td>
+                <td align="left" colspan="2"><span th:text="${flight.getFlight().getLegs().get(0).getSegments().get(flight.getFlight().getLegs().get(0).getSegments().size()-1).getArrivalCity().getCaption()}">xxx</span></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td align="center" colspan="3">время в пути: <span th:text="${flight.getFlight().getLegs().get(0).getDuration()}">xxx</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td align="center" colspan="3">кол-во пересадок: <span th:text="${flight.getFlight().getLegs().get(0).getSegments().size()}-1">xx</span></td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <hr color="#999999" width="90%">
+            <!-- Обратный маршрут -->
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            	<col width="110">
+                <col width="110">
+                <col width="60">
+                <col width="110">
+                <col width="110">
+              <tr>
+                <td align="right" colspan="2"><span th:text="${flight.getFlight().getLegs().get(1).getSegments().get(0).getDepartureCity().getCaption()}">xxx</span></td>
+                <td align="center"> ---> </td>
+                <td align="left" colspan="2"><span th:text="${flight.getFlight().getLegs().get(1).getSegments().get(flight.getFlight().getLegs().get(1).getSegments().size()-1).getArrivalCity().getCaption()}">xxx</span></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td align="center" colspan="3">время в пути: <span th:text="${flight.getFlight().getLegs().get(1).getDuration()}">xxx</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td align="center" colspan="3">кол-во пересадок: <span th:text="${flight.getFlight().getLegs().get(1).getSegments().size()}-1">xx</span></td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+              <tr bgcolor="#FF6600">
+                <td align="center">Выбрать</td>
+              </tr>
+            </table>
+            <table> <tr height="20"><td></td></tr></table>
+<!--
+            	<span th:text="${flight.getFlight().getCarrier().getCaption()} + ' стоимость: ' + ${flight.getFlight().getPrice().getTotal().getAmount()} +
+            	 ' продолжительность: ' + ${flight.getFlight().getLegs().get(0).getDuration()}">xxx</span> -->
+        	</div>
+
+        </td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>

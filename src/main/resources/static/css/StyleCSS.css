@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {background-color:#000; color: #CCC; font-size: 15px; font-family: Arial, Helvetica, sans-serif; line-height:16px; margin:0; padding:0;}
+tr, td {margin:0; padding:0;  }
+
+ .TextGeorgia {font-family:Georgia, "Times New Roman", Times, serif; margin:8px;}
+ .MarginZero {margin:0; padding:0;}
+ .PaddingUsual1 {padding: 6px 8px;}
+ .PaddingLeft1 {padding-left: 30px;}
+ .PaddingLeft2 {padding-left: 60px;}
+ .PaddingImage1 {padding: 0 5px 0 0;}
+ .PaddingImage2 {padding: 0 15px 10px 0;}
+ .TextUnderlined1 {text-decoration:underline;}
+ .TextNotUnderlined1 {text-decoration: none;}
+ 
+.myTable1 {padding: 0;}
+.myTable1 td { padding: 0;}
+.myTable1 td:first-child { width:110px; }
+.myTable1 td:second-child { width:115px; }
+ 
+ 
